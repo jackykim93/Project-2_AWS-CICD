@@ -1,28 +1,15 @@
-const fastify = require('fastify')()
+'use strict'
 
-fastify.register(require('@fastify/mongodb'), {
-  // force to close the mongodb connection when app stopped
-  // the default value is false
-  forceClose: true,
-  
-  url: 'mongodb://mongo/mydb'
-})
+const fp = require('fastify-plugin')
 
-fastify.get('/user/:id', function (req, reply) {
-  // Or this.mongo.client.db('mydb').collection('users')
-  const users = this.mongo.db.collection('users')
-
-  // if the id is an ObjectId format, you need to create a new ObjectId
-  const id = this.mongo.ObjectId(req.params.id)
-  users.findOne({ id }, (err, user) => {
-    if (err) {
-      reply.send(err)
-      return
-    }
-    reply.send(user)
-  })
-})
-
-fastify.listen({ port: 3000 }, err => {
-  if (err) throw err
+const {
+    DATABASE_USER,
+    DATABASE_PASSWORD,
+ } = process.env
+ 
+module.exports = fp(async function (fastify, opts) {
+    fastify.register(require('@fastify/mongodb'), {
+        connectionString: 
+        `mongodb://${DATABASE_USER}:${DATABASE_PASSWORD}`
+      })
 })

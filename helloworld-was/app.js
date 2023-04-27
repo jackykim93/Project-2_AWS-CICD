@@ -1,28 +1,28 @@
-'use strict'
+const fastify = require('fastify')()
 
-const path = require('path')
-const AutoLoad = require('@fastify/autoload')
+fastify.register(require('@fastify/mongodb'), {
+  // force to close the mongodb connection when app stopped
+  // the default value is false
+  forceClose: true,
+  
+  url: 'mongodb://mongo/mydb'
+})
 
-// Pass --options via CLI arguments in command to enable these options.
-module.exports.options = {}
+fastify.get('/user/:id', function (req, reply) {
+  // Or this.mongo.client.db('mydb').collection('users')
+  const users = this.mongo.db.collection('users')
 
-module.exports = async function (fastify, opts) {
-  // Place here your custom code!
-
-  // Do not touch the following lines
-
-  // This loads all plugins defined in plugins
-  // those should be support plugins that are reused
-  // through your application
-  fastify.register(AutoLoad, {
-    dir: path.join(__dirname, 'plugins'),
-    options: Object.assign({}, opts)
+  // if the id is an ObjectId format, you need to create a new ObjectId
+  const id = this.mongo.ObjectId(req.params.id)
+  users.findOne({ id }, (err, user) => {
+    if (err) {
+      reply.send(err)
+      return
+    }
+    reply.send(user)
   })
+})
 
-  // This loads all plugins defined in routes
-  // define your routes in one of these
-  fastify.register(AutoLoad, {
-    dir: path.join(__dirname, 'routes'),
-    options: Object.assign({}, opts)
-  })
-}
+fastify.listen({ port: 3000 }, err => {
+  if (err) throw err
+})
