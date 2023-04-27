@@ -3,6 +3,12 @@ version: '3.1'
 
 services:
 
+  project2:
+    image: project2_helloworld
+    restart: 'always'
+    container_name: server 
+    ports:
+      - "3000:3000"  
   mongo:
     image: mongo:5.0.17
     restart: always
