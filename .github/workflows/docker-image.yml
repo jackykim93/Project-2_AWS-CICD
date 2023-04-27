@@ -1,14 +1,26 @@
-name: Build and Push Golang Image to AWS ECR
+name: Deploy to Amazon ECR
+
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+env:
+  AWS_REGION: ap-northeast-2
+  ECR_REGISTRY: 024072356119.dkr.ecr.ap-northeast-2.amazonaws.com
+  ECR_REPOSITORY: project2_helloworld
+  IMAGE_TAG: v1.1
+
 jobs:
-  build-and-push:
-    name: Build and Push to ECR
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
-    
+    environment: production
+
     steps:
-    - name: Check out code
+    - name: Checkout
       uses: actions/checkout@v2
 
     - name: Configure AWS credentials
@@ -16,19 +28,22 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ap-northeast-2
+        aws-region: ${{ env.AWS_REGION }}
 
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build, Tag, and Push the Image to Amazon ECR
+    - name: Build, tag, and push image to Amazon ECR
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: project2_helloworld
         IMAGE_TAG: ${{ github.sha }}
+      working-directory: ./helloworld-was
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest -f ./Devops-04-S2-Team11/helloworld-was/Dockerfile .
-        docker push -a $ECR_REGISTRY/$ECR_REPOSITORY
-
+        # Build a docker container and
+        # push it to ECR so that it can
+        # be deployed to ECS.
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
