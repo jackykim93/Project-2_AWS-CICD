@@ -29,5 +29,5 @@ jobs:
         ECR_REPOSITORY: project2_helloworld
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        docker build -f /home/novaskies/Devops-04-S2-Team11/helloworld-was/Dockerfile -t project2_helloworld -t project2_helloworld:v1.1 .
+        docker build -f /home/novaskies/Devops-04-S2-Team11/helloworld-was/Dockerfile -t project2_helloworld:latest .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
