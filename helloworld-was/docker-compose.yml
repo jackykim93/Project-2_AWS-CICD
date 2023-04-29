@@ -3,22 +3,23 @@ version: '3.1'
 
 services:
 
-  project2:
+  helloworld-was:
     image: project2_helloworld
-    restart: 'always'
+    restart: always
     container_name: server 
     ports:
       - "3000:3000"  
     depends_on:
       - mongo
     env_file:
-      -.env
+      - .env
 
   mongo:
-    image: mongo:5.0.17
+    image: mongo
     restart: always
     ports:
       - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_ROOT_HOSTNAME: ${MONGO_INITDB_ROOT_HOSTNAME}

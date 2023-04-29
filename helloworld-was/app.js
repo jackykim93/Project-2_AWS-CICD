@@ -1,28 +1,23 @@
-const fastify = require('fastify')()
+'use strict'
 
-fastify.register(require('@fastify/mongodb'), {
-  // force to close the mongodb connection when app stopped
-  // the default value is false
-  forceClose: true,
-  
-  url: 'mongodb://mongo/mydb'
-})
+const path = require('path')
+const AutoLoad = require('@fastify/autoload')
 
-fastify.get('/user/:id', function (req, reply) {
-  // Or this.mongo.client.db('mydb').collection('users')
-  const users = this.mongo.db.collection('users')
+require('dotenv').config()
 
-  // if the id is an ObjectId format, you need to create a new ObjectId
-  const id = this.mongo.ObjectId(req.params.id)
-  users.findOne({ id }, (err, user) => {
-    if (err) {
-      reply.send(err)
-      return
-    }
-    reply.send(user)
+
+module.exports.options = {}
+
+module.exports = async function (fastify, opts) {
+
+  fastify.register(AutoLoad, {
+    dir: path.join(__dirname, 'plugins'),
+    options: Object.assign({}, opts)
   })
-})
 
-fastify.listen({ port: 3000 }, err => {
-  if (err) throw err
-})
+
+  fastify.register(AutoLoad, {
+    dir: path.join(__dirname, 'routes'),
+    options: Object.assign({}, opts)
+  })
+}
