@@ -1,9 +1,9 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:024072356119:task-definition/helloworld-was-task-definition:4",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:024072356119:task-definition/helloworld-was-task-definition:6",
     "containerDefinitions": [
         {
             "name": "helloworld-was",
-            "image": "024072356119.dkr.ecr.ap-northeast-2.amazonaws.com/project2_helloworld:v1.0",
+            "image": "024072356119.dkr.ecr.ap-northeast-2.amazonaws.com/project2_helloworld:c125cb55304dcfea6f368fa889b7c0af53c9fa9d",
             "cpu": 0,
             "portMappings": [
                 {
@@ -16,10 +16,8 @@
             ],
             "essential": true,
             "environment": [],
-            "environmentFiles": [],
             "mountPoints": [],
             "volumesFrom": [],
-            "ulimits": [],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
@@ -34,7 +32,7 @@
     "family": "helloworld-was-task-definition",
     "executionRoleArn": "arn:aws:iam::024072356119:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 4,
+    "revision": 6,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -77,7 +75,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2023-04-28T06:48:50.274Z",
+    "registeredAt": "2023-04-30T20:08:55.368Z",
     "registeredBy": "arn:aws:iam::024072356119:root",
     "tags": []
 }
