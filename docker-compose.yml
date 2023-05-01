@@ -4,7 +4,7 @@ version: '3.1'
 services:
 
   helloworld-was:
-    image: project2_helloworld
+    image: helloworld-was:v1.0
     restart: always
     container_name: server 
     ports:
