@@ -2,38 +2,27 @@
     "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:024072356119:task-definition/helloworld-was-task-definition:7",
     "containerDefinitions": [
         {
-            "name": "mongo-db",
-            "image": "mongo:latest",
+            "name": "helloworld-was",
+            "image": "024072356119.dkr.ecr.ap-northeast-2.amazonaws.com/project2_helloworld:335803fe25dbfe5ab6e587b53c679b036801bc0e",
             "cpu": 0,
             "portMappings": [
                 {
-                    "name": "mongo-db-27017-tcp",
-                    "containerPort": 27017,
-                    "hostPort": 27017,
+                    "name": "helloworld-was-3000-tcp",
+                    "containerPort": 3000,
+                    "hostPort": 3000,
                     "protocol": "tcp",
                     "appProtocol": "http"
                 }
             ],
             "essential": true,
-            "environment": [
-                {
-                    "name": "MONGO_INITDB_ROOT_USERNAME",
-                    "value": "jacky"
-                },
-                {
-                    "name": "MONGO_INITDB_ROOT_PASSWORD",
-                    "value": "12345"
-                }
-            ],
-            "environmentFiles": [],
+            "environment": [],
             "mountPoints": [],
             "volumesFrom": [],
-            "ulimits": [],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-create-group": "true",
-                    "awslogs-group": "/ecs/mongo-task",
+                    "awslogs-group": "/ecs/helloworld-was-task-definition",
                     "awslogs-region": "ap-northeast-2",
                     "awslogs-stream-prefix": "ecs"
                 }
