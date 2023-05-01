@@ -1,38 +1,49 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:024072356119:task-definition/helloworld-was-task-definition:6",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:024072356119:task-definition/mongo-task:2",
     "containerDefinitions": [
         {
-            "name": "helloworld-was",
-            "image": "024072356119.dkr.ecr.ap-northeast-2.amazonaws.com/project2_helloworld:c125cb55304dcfea6f368fa889b7c0af53c9fa9d",
+            "name": "mongo-db",
+            "image": "mongo:latest",
             "cpu": 0,
             "portMappings": [
                 {
-                    "name": "helloworld-was-3000-tcp",
-                    "containerPort": 3000,
-                    "hostPort": 3000,
+                    "name": "mongo-db-27017-tcp",
+                    "containerPort": 27017,
+                    "hostPort": 27017,
                     "protocol": "tcp",
                     "appProtocol": "http"
                 }
             ],
             "essential": true,
-            "environment": [],
+            "environment": [
+                {
+                    "name": "MONGO_INITDB_ROOT_USERNAME",
+                    "value": "jacky"
+                },
+                {
+                    "name": "MONGO_INITDB_ROOT_PASSWORD",
+                    "value": "12345"
+                }
+            ],
+            "environmentFiles": [],
             "mountPoints": [],
             "volumesFrom": [],
+            "ulimits": [],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-create-group": "true",
-                    "awslogs-group": "/ecs/helloworld-was-task-definition",
+                    "awslogs-group": "/ecs/mongo-task",
                     "awslogs-region": "ap-northeast-2",
                     "awslogs-stream-prefix": "ecs"
                 }
             }
         }
     ],
-    "family": "helloworld-was-task-definition",
+    "family": "mongo-task",
     "executionRoleArn": "arn:aws:iam::024072356119:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 6,
+    "revision": 2,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -43,13 +54,7 @@
             "name": "ecs.capability.execution-role-awslogs"
         },
         {
-            "name": "com.amazonaws.ecs.capability.ecr-auth"
-        },
-        {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
-        },
-        {
-            "name": "ecs.capability.execution-role-ecr-pull"
         },
         {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
@@ -75,7 +80,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2023-04-30T20:08:55.368Z",
+    "registeredAt": "2023-04-28T07:11:13.461Z",
     "registeredBy": "arn:aws:iam::024072356119:root",
     "tags": []
 }
