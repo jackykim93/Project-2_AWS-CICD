@@ -7,10 +7,10 @@ on:
 env:
   AWS_REGION: ap-northeast-2                  # 리전 이름
   ECR_REPOSITORY: project2_helloworld         # ecr 레포 이름
-  ECS_SERVICE: helloworld-was-service                   # ecs 서비스 이름
-  ECS_CLUSTER: helloworld-was-cluster                 # 클러스터 이름
+  ECS_SERVICE: helloworld-was-service         # ecs 서비스 이름
+  ECS_CLUSTER: helloworld-was-cluster         # 클러스터 이름
   ECS_TASK_DEFINITION: helloworld-was/task-definition.json      # 태스크 정의 json 파일
-  CONTAINER_NAME: helloworld-was-task                # 태스크 정의/컨테이너 이름
+  CONTAINER_NAME: helloworld-was-task         # 태스크 정의/컨테이너 이름
 
 permissions:
   contents: read
