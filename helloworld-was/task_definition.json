@@ -1,5 +1,5 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:024072356119:task-definition/helloworld-was-task-definition:7",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:024072356119:task-definition/helloworld-was-task-definition:8",
     "containerDefinitions": [
         {
             "name": "helloworld-was",
@@ -27,12 +27,38 @@
                     "awslogs-stream-prefix": "ecs"
                 }
             }
+        },
+        {
+            "name": "mongo",
+            "image": "mongo:latest",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "name": "mongo-27017-tcp",
+                    "containerPort": 27017,
+                    "hostPort": 27017,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/mongo-task-definition",
+                    "awslogs-region": "ap-northeast-2",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
         }
     ],
     "family": "helloworld-was-task-definition",
     "executionRoleArn": "arn:aws:iam::024072356119:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 7,
+    "revision": 8,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -65,17 +91,5 @@
     "compatibilities": [
         "EC2",
         "FARGATE"
-    ],
-    "requiresCompatibilities": [
-        "FARGATE"
-    ],
-    "cpu": "1024",
-    "memory": "3072",
-    "runtimePlatform": {
-        "cpuArchitecture": "X86_64",
-        "operatingSystemFamily": "LINUX"
-    },
-    "registeredAt": "2023-04-30T20:22:11.963Z",
-    "registeredBy": "arn:aws:iam::024072356119:root",
-    "tags": []
+    ]
 }
