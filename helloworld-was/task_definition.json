@@ -1,5 +1,5 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:024072356119:task-definition/mongo-task:2",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:024072356119:task-definition/helloworld-was-task-definition:7",
     "containerDefinitions": [
         {
             "name": "mongo-db",
@@ -40,10 +40,10 @@
             }
         }
     ],
-    "family": "mongo-task",
+    "family": "helloworld-was-task-definition",
     "executionRoleArn": "arn:aws:iam::024072356119:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 2,
+    "revision": 7,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -54,7 +54,13 @@
             "name": "ecs.capability.execution-role-awslogs"
         },
         {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
         },
         {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
@@ -80,7 +86,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2023-04-28T07:11:13.461Z",
+    "registeredAt": "2023-04-30T20:22:11.963Z",
     "registeredBy": "arn:aws:iam::024072356119:root",
     "tags": []
 }
