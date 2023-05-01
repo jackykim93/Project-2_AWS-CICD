@@ -1,9 +1,9 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:024072356119:task-definition/helloworld-was-task-definition:8",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:024072356119:task-definition/helloworld-was-task-definition:5",
     "containerDefinitions": [
         {
             "name": "helloworld-was",
-            "image": "024072356119.dkr.ecr.ap-northeast-2.amazonaws.com/project2_helloworld:335803fe25dbfe5ab6e587b53c679b036801bc0e",
+            "image": "024072356119.dkr.ecr.ap-northeast-2.amazonaws.com/project2_helloworld:c125cb55304dcfea6f368fa889b7c0af53c9fa9d",
             "cpu": 0,
             "portMappings": [
                 {
@@ -27,38 +27,12 @@
                     "awslogs-stream-prefix": "ecs"
                 }
             }
-        },
-        {
-            "name": "mongo",
-            "image": "mongo:latest",
-            "cpu": 0,
-            "portMappings": [
-                {
-                    "name": "mongo-27017-tcp",
-                    "containerPort": 27017,
-                    "hostPort": 27017,
-                    "protocol": "tcp"
-                }
-            ],
-            "essential": true,
-            "environment": [],
-            "mountPoints": [],
-            "volumesFrom": [],
-            "logConfiguration": {
-                "logDriver": "awslogs",
-                "options": {
-                    "awslogs-create-group": "true",
-                    "awslogs-group": "/ecs/mongo-task-definition",
-                    "awslogs-region": "ap-northeast-2",
-                    "awslogs-stream-prefix": "ecs"
-                }
-            }
         }
     ],
     "family": "helloworld-was-task-definition",
     "executionRoleArn": "arn:aws:iam::024072356119:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 8,
+    "revision": 5,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -91,5 +65,17 @@
     "compatibilities": [
         "EC2",
         "FARGATE"
-    ]
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "3072",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "registeredAt": "2023-04-30T20:06:31.464Z",
+    "registeredBy": "arn:aws:iam::024072356119:root",
+    "tags": []
 }
